@@ -113,6 +113,10 @@ h1 {
     font-size: 20px;
 }
 
+#open-source-code {
+    text-decoration: none;
+}
+
 .coder {
     text-align: center;
     margin-top: 15px;
