@@ -10,7 +10,7 @@ function handleSubmit(event) {
         let apiUrl = `${apiEndPoint}q=${searchInput.value}&appid=${apiKey}&units=${units}`;
         axios.get(apiUrl).then(showInformation);
     } else {
-        alert("Please choose a city.");
+        alert("Please enter a city.");
         document.querySelector("#city").innerHTML = "CITY";
         document.querySelector("#country").innerHTML = "COUNTRY";
         document.querySelector("#current-temperature").innerHTML = " ";
