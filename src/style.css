@@ -85,6 +85,10 @@ h1 {
     font-weight: 600;
 }
 
+#weatherIcon {
+    text-align: center;
+}
+
 .today-temperature {
     text-align: center;
     font-size: 50px;
