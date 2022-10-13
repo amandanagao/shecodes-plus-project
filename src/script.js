@@ -8,6 +8,7 @@ function handleSubmit(event) {
         let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?`;
         let apiUrl = `${apiEndPoint}q=${searchInput.value}&appid=${apiKey}&units=${units}`;
         axios.get(apiUrl).then(showInformation).catch(errorCheck);
+        searchInput.value = "";
     } else {
         alert("Please enter a city.");
         document.querySelector("#city").innerHTML = "CITY";
