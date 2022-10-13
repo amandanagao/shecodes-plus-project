@@ -3,14 +3,30 @@ function handleSubmit(event) {
     let searchInput = document.querySelector("#city-input");
     let cityTitle = document.querySelector("#city");
     if (searchInput.value) {
-        cityTitle.innerHTML = `${searchInput.value.toUpperCase()}`;
         let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
         let units = "metric";
         let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?`;
         let apiUrl = `${apiEndPoint}q=${searchInput.value}&appid=${apiKey}&units=${units}`;
-        axios.get(apiUrl).then(showInformation);
+        axios.get(apiUrl).then(showInformation).catch(errorCheck);
     } else {
         alert("Please enter a city.");
+        document.querySelector("#city").innerHTML = "CITY";
+        document.querySelector("#country").innerHTML = "COUNTRY";
+        document.querySelector("#current-temperature").innerHTML = " ";
+        document.querySelector("#weather-description").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#today-temp-max").innerHTML = " ";
+        document.querySelector("#today-temp-min").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#humidity").innerHTML = " ";
+        document.querySelector("#wind-speed").innerHTML = " ";
+    }
+}
+
+function errorCheck(error) {
+    let returnObject = JSON.parse(error.request.response);
+    if (returnObject.cod == 404) {
+        alert("Please enter a valid city.");
         document.querySelector("#city").innerHTML = "CITY";
         document.querySelector("#country").innerHTML = "COUNTRY";
         document.querySelector("#current-temperature").innerHTML = " ";
