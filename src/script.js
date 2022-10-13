@@ -9,6 +9,18 @@ function handleSubmit(event) {
         let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?`;
         let apiUrl = `${apiEndPoint}q=${searchInput.value}&appid=${apiKey}&units=${units}`;
         axios.get(apiUrl).then(showInformation);
+    } else {
+        alert("Please choose a city.");
+        document.querySelector("#city").innerHTML = "CITY";
+        document.querySelector("#country").innerHTML = "COUNTRY";
+        document.querySelector("#current-temperature").innerHTML = " ";
+        document.querySelector("#weather-description").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#today-temp-max").innerHTML = " ";
+        document.querySelector("#today-temp-min").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#humidity").innerHTML = " ";
+        document.querySelector("#wind-speed").innerHTML = " ";
     }
 }
 
