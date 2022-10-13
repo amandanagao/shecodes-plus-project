@@ -3,7 +3,7 @@ function handleSubmit(event) {
     let searchInput = document.querySelector("#city-input");
     let cityTitle = document.querySelector("#city");
     if (searchInput.value) {
-        axiosCalls("submit", searchInput);
+        axiosCalls("submit", searchInput, "weather");
         searchInput.value = "";
     } else {
         alert("Please enter a city.");
@@ -47,7 +47,7 @@ function getCurrentLocation(event) {
 }
 
 function showPosition(position) {
-    axiosCalls("click", position);
+    axiosCalls("click", position, "weather");
 }
 
 function showDay() {
@@ -90,13 +90,6 @@ function showInformation(response) {
     let country = document.querySelector("#country");
     country.innerHTML = `${response.data.sys.country}`;
 
-    let temperature = Math.round(response.data.main.temp);
-    let currentTemperature = document.querySelector("#current-temperature");
-    currentTemperature.innerHTML = `${temperature}°C`;
-
-    let description = document.querySelector("#weather-description");
-    description.innerHTML = `${response.data.weather[0].main}`;
-
     //weather icons
     if (document.getElementById("weatherImgIcon") === null) {
         let weatherImg = document.createElement("img");
@@ -108,6 +101,13 @@ function showInformation(response) {
         weatherImg.src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
         document.getElementById("weatherIcon").appendChild(weatherImg);
     }
+
+    let temperature = Math.round(response.data.main.temp);
+    let currentTemperature = document.querySelector("#current-temperature");
+    currentTemperature.innerHTML = `${temperature}°C`;
+
+    let description = document.querySelector("#weather-description");
+    description.innerHTML = `${response.data.weather[0].main}`;
 
     let feelsLike = document.querySelector("#feels");
     feelsLike.innerHTML = `Feels like: ${Math.round(
@@ -128,10 +128,10 @@ function showInformation(response) {
     wind.innerHTML = `${windSpeed} km/h`;
 }
 
-function axiosCalls(type, actionObj) {
+function axiosCalls(type, actionObj, endPoint) {
     let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
     let units = "metric";
-    let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?`;
+    let apiEndPoint = `https://api.openweathermap.org/data/2.5/${endPoint}?`;
 
     let apiUrl = "";
     let latitude = "";
