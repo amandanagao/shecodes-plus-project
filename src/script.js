@@ -82,6 +82,7 @@ function showTime() {
     nowTime.innerHTML = `${hours}:${minutes}`;
 }
 
+//Conversion to Fahrenheit
 function displayFahrenheitTemperature(event) {
     event.preventDefault();
     celsiusLink.classList.remove("active");
@@ -100,6 +101,7 @@ function displayFahrenheitTemperature(event) {
     todayMin.innerHTML = `${Math.round(fahrenheitMin)}°`;
 }
 
+//Conversion to Celsius
 function displayCelsiusTemperature(event) {
     event.preventDefault();
     celsiusLink.classList.add("active");
@@ -126,7 +128,7 @@ function showInformation(response) {
     let country = document.querySelector("#country");
     country.innerHTML = `${response.data.sys.country}`;
 
-    //weather icons
+    //Weather Icons
     if (document.getElementById("weatherImgIcon") === null) {
         let weatherImg = document.createElement("img");
         weatherImg.src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
