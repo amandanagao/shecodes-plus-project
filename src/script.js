@@ -82,7 +82,26 @@ function showTime() {
     nowTime.innerHTML = `${hours}:${minutes}`;
 }
 
+function displayFahrenheitTemperature(event) {
+    event.preventDefault();
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active");
+    let temperatureElement = document.querySelector("#current-temperature");
+    let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsiusTemperature(event) {
+    event.preventDefault();
+    celsiusLink.classList.add("active");
+    fahrenheitLink.classList.remove("active");
+    let temperatureElement = document.querySelector("#current-temperature");
+    temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
 function showInformation(response) {
+    celsiusTemperature = response.data.main.temp;
+
     let city = document.querySelector("#city");
     city.innerHTML = `${response.data.name}`;
 
@@ -103,7 +122,7 @@ function showInformation(response) {
 
     let temperature = Math.round(response.data.main.temp);
     let currentTemperature = document.querySelector("#current-temperature");
-    currentTemperature.innerHTML = `${temperature}°C`;
+    currentTemperature.innerHTML = `${temperature}`;
 
     let description = document.querySelector("#weather-description");
     description.innerHTML = `${response.data.weather[0].description}`;
@@ -152,11 +171,19 @@ function axiosCalls(type, actionObj, endPoint) {
     }
 }
 
+let celsiusTemperature = null;
+
 let searchCity = document.querySelector("#search-form");
 searchCity.addEventListener("submit", handleSubmit);
 
 let locationButton = document.querySelector("button");
 locationButton.addEventListener("click", getCurrentLocation);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 showDay();
 showDate();

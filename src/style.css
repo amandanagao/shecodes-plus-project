@@ -104,6 +104,15 @@ ul {
     font-size: 20px;
 }
 
+.units a {
+    text-decoration: none;
+}
+
+.units .active {
+    color: black;
+    cursor: default;
+}
+
 #weather-description:first-letter {
     text-transform: capitalize;
 }
