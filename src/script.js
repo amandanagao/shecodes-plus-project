@@ -87,8 +87,17 @@ function displayFahrenheitTemperature(event) {
     celsiusLink.classList.remove("active");
     fahrenheitLink.classList.add("active");
     let temperatureElement = document.querySelector("#current-temperature");
+    let feelsLike = document.querySelector("#feels");
+    let todayMax = document.querySelector("#today-temp-max");
+    let todayMin = document.querySelector("#today-temp-min");
     let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+    let fahrenheitFeels = (celsiusTemperatureFeels * 9) / 5 + 32;
+    let fahrenheitMax = (celsiusTemperatureMax * 9) / 5 + 32;
+    let fahrenheitMin = (celsiusTemperatureMin * 9) / 5 + 32;
     temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+    feelsLike.innerHTML = `Feels like: ${Math.round(fahrenheitFeels)}°`;
+    todayMax.innerHTML = `${Math.round(fahrenheitMax)}°`;
+    todayMin.innerHTML = `${Math.round(fahrenheitMin)}°`;
 }
 
 function displayCelsiusTemperature(event) {
@@ -96,11 +105,20 @@ function displayCelsiusTemperature(event) {
     celsiusLink.classList.add("active");
     fahrenheitLink.classList.remove("active");
     let temperatureElement = document.querySelector("#current-temperature");
+    let feelsLike = document.querySelector("#feels");
+    let todayMax = document.querySelector("#today-temp-max");
+    let todayMin = document.querySelector("#today-temp-min");
     temperatureElement.innerHTML = Math.round(celsiusTemperature);
+    feelsLike.innerHTML = `Feels like: ${Math.round(celsiusTemperatureFeels)}°`;
+    todayMax.innerHTML = `${Math.round(celsiusTemperatureMax)}°`;
+    todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
 }
 
 function showInformation(response) {
     celsiusTemperature = response.data.main.temp;
+    celsiusTemperatureFeels = response.data.main.feels_like;
+    celsiusTemperatureMax = response.data.main.temp_max;
+    celsiusTemperatureMin = response.data.main.temp_min;
 
     let city = document.querySelector("#city");
     city.innerHTML = `${response.data.name}`;
@@ -172,6 +190,9 @@ function axiosCalls(type, actionObj, endPoint) {
 }
 
 let celsiusTemperature = null;
+let celsiusTemperatureFeels = null;
+let celsiusTemperatureMax = null;
+let celsiusTemperatureMin = null;
 
 let searchCity = document.querySelector("#search-form");
 searchCity.addEventListener("submit", handleSubmit);
