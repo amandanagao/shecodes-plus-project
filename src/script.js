@@ -85,7 +85,7 @@ function showTime() {
 
 function showInformation(response) {
     let city = document.querySelector("#city");
-    city.innerHTML = `${response.data.name.toUpperCase()}`;
+    city.innerHTML = `${response.data.name}`;
 
     let country = document.querySelector("#country");
     country.innerHTML = `${response.data.sys.country}`;
@@ -107,7 +107,7 @@ function showInformation(response) {
     currentTemperature.innerHTML = `${temperature}°C`;
 
     let description = document.querySelector("#weather-description");
-    description.innerHTML = `${response.data.weather[0].main}`;
+    description.innerHTML = `${response.data.weather[0].description}`;
 
     let feelsLike = document.querySelector("#feels");
     feelsLike.innerHTML = `Feels like: ${Math.round(

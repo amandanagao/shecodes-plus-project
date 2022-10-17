@@ -104,6 +104,10 @@ ul {
     font-size: 20px;
 }
 
+#weather-description {
+    text-transform: capitalize;
+}
+
 .temperature-more {
     text-align: center;
     font-size: 18px;
