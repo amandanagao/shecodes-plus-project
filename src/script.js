@@ -1,7 +1,6 @@
 function handleSubmit(event) {
     event.preventDefault();
     let searchInput = document.querySelector("#city-input");
-    let cityTitle = document.querySelector("#city");
     if (searchInput.value) {
         axiosCalls("submit", searchInput, "weather");
         searchInput.value = "";
