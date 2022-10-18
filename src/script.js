@@ -135,7 +135,7 @@ function displayForecast(response) {
     let forecastElement = document.querySelector("#weather-forecast");
     let forecastHTML = "";
     forecast.forEach(function (forecastDay, index) {
-        if (index > 0) {
+        if (index === 0) {
             forecastHTML =
                 forecastHTML +
                 `<div class="row" id="weather-forecast-day">
@@ -153,6 +153,28 @@ function displayForecast(response) {
                     <div class="col-3 weather-forecast-temperature-min">
                         ${Math.round(forecastDay.temperature.minimum)}°
                     </div>
+                </div>`;
+        } else {
+            forecastHTML =
+                forecastHTML +
+                `<div class="row" id="weather-forecast-day">
+                    <div class="col-4 weather-forecast-date">
+                        ${formatDay(forecastDay.time)}
+                    </div>    
+                    <div class="col-2 weather-forecast-icon">
+                        <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+                            forecastDay.condition.icon
+                        }.png" alt="" width="40"/>
+                    </div>    
+                    <div class="col-3 weather-forecast-temperature-max">${Math.round(
+                        forecastDay.temperature.maximum
+                    )}°
+                    </div>    
+                    <div class="col-3 weather-forecast-temperature-min">${Math.round(
+                        forecastDay.temperature.minimum
+                    )}°
+                    </div>
+                    
                 </div>`;
         }
     });
