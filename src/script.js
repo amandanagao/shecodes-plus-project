@@ -116,28 +116,49 @@ function displayCelsiusTemperature(event) {
     todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
 }
 
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    return days[day];
+}
+
 function displayForecast(response) {
-    console.log(response.data);
+    let forecast = response.data.daily;
+    console.log(response.data.daily);
     let forecastElement = document.querySelector("#weather-forecast");
     let forecastHTML = "";
-    let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
-    days.forEach(function (day) {
-        forecastHTML =
-            forecastHTML +
-            `<div id="weather-forecast-day">
-                <span class="weather-forecast-date">${day}</span>
-                <span class="weather-forecast-icon"></span>
-                <span class="weather-forecast-temperature-max">20°</span>
-                <span class="weather-forecast-temperature-min">16°</span>
-            </div>`;
+    forecast.forEach(function (forecastDay, index) {
+        if (index > 0) {
+            forecastHTML =
+                forecastHTML +
+                `<div class="row" id="weather-forecast-day">
+                    <div class="col-4 weather-forecast-date">
+                        ${formatDay(forecastDay.time)}
+                    </div>    
+                    <div class="col-2 weather-forecast-icon">
+                        <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+                            forecastDay.condition.icon
+                        }.png" alt="" width="40"/>
+                    </div>    
+                    <div class="col-3 weather-forecast-temperature-max">    
+                        ${Math.round(forecastDay.temperature.maximum)}°
+                    </div>    
+                    <div class="col-3 weather-forecast-temperature-min">
+                        ${Math.round(forecastDay.temperature.minimum)}°
+                    </div>
+                </div>`;
+        }
     });
     forecastElement.innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates) {
-    let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    let apiKey = "b220773ot9b8ef196b845b21b5cabb26";
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${coordinates}&key=${apiKey}`;
     axios.get(apiUrl).then(displayForecast);
+    console.log(apiUrl);
     //axiosCalls("submit",coordinates,"forecast");
 }
 
@@ -190,7 +211,7 @@ function showInformation(response) {
     let windSpeed = (response.data.wind.speed * 3.6).toFixed(1);
     wind.innerHTML = `${windSpeed} km/h`;
 
-    getForecast(response.data.coord);
+    getForecast(response.data.name);
 }
 
 function axiosCalls(type, actionObj, endPoint) {

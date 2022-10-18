@@ -17,6 +17,10 @@ ul {
     font-family: "Handlee", cursive;
 }
 
+.card-body {
+    padding: 16px 10px;
+}
+
 .search {
     text-align: center;
     margin: 0px 10px 25px;
@@ -132,14 +136,26 @@ ul {
 }
 
 #weather-forecast {
-    display: flex;
-    flex-direction: column;
-    line-height: 2;
-    justify-content: space-between;
+    font-size: 20px;
 }
 
-#weather-forecast .weather-forecast-temperature-min {
+.weather-forecast-date {
+    padding-right: 0;
+}
+
+.weather-forecast-icon {
+    padding: 0;
+    position: relative;
+    top: -5px;
+}
+
+.weather-forecast-temperature-max {
+    padding-right: 0;
+}
+
+.weather-forecast-temperature-min {
     opacity: 70%;
+    padding-right: 0;
 }
 
 .more-info {
