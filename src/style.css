@@ -131,12 +131,14 @@ ul {
     opacity: 70%;
 }
 
-#weather-forecast li {
+#weather-forecast {
     display: flex;
+    flex-direction: column;
+    line-height: 2;
     justify-content: space-between;
 }
 
-#weather-forecast li .weather-forecast-temperature-min {
+#weather-forecast .weather-forecast-temperature-min {
     opacity: 70%;
 }
 

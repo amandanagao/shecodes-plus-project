@@ -116,6 +116,23 @@ function displayCelsiusTemperature(event) {
     todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
 }
 
+function displayForecast() {
+    let forecastElement = document.querySelector("#weather-forecast");
+    let forecastHTML = "";
+    let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
+    days.forEach(function (day) {
+        forecastHTML =
+            forecastHTML +
+            `<div id="weather-forecast-day">
+                <span class="weather-forecast-date">${day}</span>                                        >
+                <span class="weather-forecast-icon"></span>
+                <span class="weather-forecast-temperature-max">20°</span>
+                <span class="weather-forecast-temperature-min">16°</span>
+            </div>`;
+    });
+    forecastElement.innerHTML = forecastHTML;
+}
+
 function showInformation(response) {
     celsiusTemperature = response.data.main.temp;
     celsiusTemperatureFeels = response.data.main.feels_like;
@@ -211,3 +228,4 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 showDay();
 showDate();
 showTime();
+displayForecast();
