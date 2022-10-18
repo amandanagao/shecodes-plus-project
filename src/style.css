@@ -159,7 +159,17 @@ ul {
 }
 
 .more-info {
-    font-size: 20px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 35px;
+    padding: 20px;
+}
+
+.sun-time {
+    text-align: center;
+    font-weight: 100;
+    font-size: 35px;
+    padding: 20px;
 }
 
 #open-source-code {

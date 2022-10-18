@@ -126,7 +126,6 @@ function formatDay(timestamp) {
 
 function displayForecast(response) {
     let forecast = response.data.daily;
-    console.log(response.data.daily);
     let forecastElement = document.querySelector("#weather-forecast");
     let forecastHTML = "";
     forecast.forEach(function (forecastDay, index) {
@@ -158,11 +157,11 @@ function getForecast(coordinates) {
     let apiKey = "b220773ot9b8ef196b845b21b5cabb26";
     let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${coordinates}&key=${apiKey}`;
     axios.get(apiUrl).then(displayForecast);
-    console.log(apiUrl);
     //axiosCalls("submit",coordinates,"forecast");
 }
 
 function showInformation(response) {
+    console.log(response.data);
     celsiusTemperature = response.data.main.temp;
     celsiusTemperatureFeels = response.data.main.feels_like;
     celsiusTemperatureMax = response.data.main.temp_max;
@@ -208,8 +207,22 @@ function showInformation(response) {
     humidity.innerHTML = `${response.data.main.humidity}%`;
 
     let wind = document.querySelector("#wind-speed");
-    let windSpeed = (response.data.wind.speed * 3.6).toFixed(1);
+    let windSpeed = (response.data.wind.speed * 3.6).toFixed(0);
     wind.innerHTML = `${windSpeed} km/h`;
+
+    let sunrise = document.querySelector("#sunrise");
+    let sunriseTime = response.data.sys.sunrise * 1000;
+    let sunriseNow = new Date(sunriseTime);
+    let sunriseHours = ("0" + sunriseNow.getHours()).slice(-2);
+    let sunriseMinutes = ("0" + sunriseNow.getMinutes()).slice(-2);
+    sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
+
+    let sunset = document.querySelector("#sunset");
+    let sunsetTime = response.data.sys.sunset * 1000;
+    let sunsetNow = new Date(sunsetTime);
+    let sunsetHours = ("0" + sunsetNow.getHours()).slice(-2);
+    let sunsetMinutes = ("0" + sunsetNow.getMinutes()).slice(-2);
+    sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
 
     getForecast(response.data.name);
 }
