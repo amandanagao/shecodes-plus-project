@@ -131,6 +131,15 @@ ul {
     opacity: 70%;
 }
 
+#weather-forecast li {
+    display: flex;
+    justify-content: space-between;
+}
+
+#weather-forecast li .weather-forecast-temperature-min {
+    opacity: 70%;
+}
+
 .more-info {
     font-size: 20px;
 }
