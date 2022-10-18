@@ -116,7 +116,8 @@ function displayCelsiusTemperature(event) {
     todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
 }
 
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response.data);
     let forecastElement = document.querySelector("#weather-forecast");
     let forecastHTML = "";
     let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -124,13 +125,20 @@ function displayForecast() {
         forecastHTML =
             forecastHTML +
             `<div id="weather-forecast-day">
-                <span class="weather-forecast-date">${day}</span>                                        >
+                <span class="weather-forecast-date">${day}</span>
                 <span class="weather-forecast-icon"></span>
                 <span class="weather-forecast-temperature-max">20°</span>
                 <span class="weather-forecast-temperature-min">16°</span>
             </div>`;
     });
     forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+    let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);
+    //axiosCalls("submit",coordinates,"forecast");
 }
 
 function showInformation(response) {
@@ -181,6 +189,8 @@ function showInformation(response) {
     let wind = document.querySelector("#wind-speed");
     let windSpeed = (response.data.wind.speed * 3.6).toFixed(1);
     wind.innerHTML = `${windSpeed} km/h`;
+
+    getForecast(response.data.coord);
 }
 
 function axiosCalls(type, actionObj, endPoint) {
