@@ -14,8 +14,11 @@ function handleSubmit(event) {
         document.querySelector("#today-temp-max").innerHTML = " ";
         document.querySelector("#today-temp-min").innerHTML = " ";
         document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#weather-forecast").innerHTML = " ";
         document.querySelector("#humidity").innerHTML = " ";
         document.querySelector("#wind-speed").innerHTML = " ";
+        document.querySelector("#sunrise").innerHTML = " ";
+        document.querySelector("#sunset").innerHTML = " ";
         document.querySelector("#weatherImgIcon").remove();
     }
 }
@@ -32,8 +35,11 @@ function errorCheck(error) {
         document.querySelector("#today-temp-max").innerHTML = " ";
         document.querySelector("#today-temp-min").innerHTML = " ";
         document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#weather-forecast").innerHTML = " ";
         document.querySelector("#humidity").innerHTML = " ";
         document.querySelector("#wind-speed").innerHTML = " ";
+        document.querySelector("#sunrise").innerHTML = " ";
+        document.querySelector("#sunset").innerHTML = " ";
         if (document.getElementById("weatherImgIcon") !== null) {
             document.querySelector("#weatherImgIcon").remove();
         }
@@ -161,7 +167,6 @@ function getForecast(coordinates) {
 }
 
 function showInformation(response) {
-    console.log(response.data);
     celsiusTemperature = response.data.main.temp;
     celsiusTemperatureFeels = response.data.main.feels_like;
     celsiusTemperatureMax = response.data.main.temp_max;
@@ -211,17 +216,20 @@ function showInformation(response) {
     wind.innerHTML = `${windSpeed} km/h`;
 
     let sunrise = document.querySelector("#sunrise");
-    let sunriseTime = response.data.sys.sunrise * 1000;
-    let sunriseNow = new Date(sunriseTime);
-    let sunriseHours = ("0" + sunriseNow.getHours()).slice(-2);
-    let sunriseMinutes = ("0" + sunriseNow.getMinutes()).slice(-2);
+    let timezone = response.data.timezone;
+    let sunriseTime = response.data.sys.sunrise;
+    let sunriseLocal = (timezone + sunriseTime) * 1000;
+    let sunriseNow = new Date(sunriseLocal);
+    let sunriseHours = ("0" + sunriseNow.getUTCHours()).slice(-2);
+    let sunriseMinutes = ("0" + sunriseNow.getUTCMinutes()).slice(-2);
     sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
 
     let sunset = document.querySelector("#sunset");
-    let sunsetTime = response.data.sys.sunset * 1000;
-    let sunsetNow = new Date(sunsetTime);
-    let sunsetHours = ("0" + sunsetNow.getHours()).slice(-2);
-    let sunsetMinutes = ("0" + sunsetNow.getMinutes()).slice(-2);
+    let sunsetTime = response.data.sys.sunset;
+    let sunsetLocal = (timezone + sunsetTime) * 1000;
+    let sunsetNow = new Date(sunsetLocal);
+    let sunsetHours = ("0" + sunsetNow.getUTCHours()).slice(-2);
+    let sunsetMinutes = ("0" + sunsetNow.getUTCMinutes()).slice(-2);
     sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
 
     getForecast(response.data.name);
