@@ -123,7 +123,15 @@ function displayCelsiusTemperature(event) {
 function formatDay(timestamp) {
     let date = new Date(timestamp * 1000);
     let day = date.getDay();
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
 
     return days[day];
 }
@@ -146,19 +154,19 @@ function displayForecast(response) {
             forecastHTML =
                 forecastHTML +
                 `<div class="row" id="weather-forecast-day">
-                    <div class="col-4 weather-forecast-date">
+                    <div class="col-5 weather-forecast-date">
                         ${formatDay(forecastDay.time)}
                     </div>    
-                    <div class="col-2 weather-forecast-icon">
+                    <div class="col-3 weather-forecast-icon">
                         <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
                             forecastDay.condition.icon
                         }.png" alt="" width="40"/>
                     </div>    
-                    <div class="col-3 weather-forecast-temperature-max">${Math.round(
+                    <div class="col-2 weather-forecast-temperature-max">${Math.round(
                         forecastDay.temperature.maximum
                     )}°
                     </div>    
-                    <div class="col-3 weather-forecast-temperature-min">${Math.round(
+                    <div class="col-2 weather-forecast-temperature-min">${Math.round(
                         forecastDay.temperature.minimum
                     )}°
                     </div>

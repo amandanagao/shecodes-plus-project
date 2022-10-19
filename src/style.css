@@ -131,6 +131,10 @@ ul {
     font-size: 18px;
 }
 
+.today-max-min #today-temp-max {
+    font-weight: bold;
+}
+
 .today-max-min #today-temp-min {
     opacity: 70%;
 }
@@ -155,6 +159,7 @@ ul {
 
 .weather-forecast-temperature-max {
     padding-right: 0;
+    font-weight: bold;
 }
 
 .weather-forecast-temperature-min {

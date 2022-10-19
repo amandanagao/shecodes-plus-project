@@ -64,6 +64,7 @@
                 <div class="col-4">
                     <div class="date-time">
                         <i class="fa-solid fa-thumbtack">
+                            <br />
                             <span id="current-day"></span>
                         </i>
                     </div>
@@ -71,6 +72,7 @@
                 <div class="col-4">
                     <div class="date-time">
                         <i class="fa-regular fa-calendar">
+                            <br />
                             <span id="current-date"></span>
                         </i>
                     </div>
@@ -78,13 +80,14 @@
                 <div class="col-4">
                     <div class="date-time">
                         <i class="fa-regular fa-clock">
+                            <br />
                             <span id="current-time"></span>
                         </i>
                     </div>
                 </div>
             </div>
             <!--Cards-->
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col card-display">
                     <div class="card h-100">
                         <div class="card-body">
@@ -92,7 +95,7 @@
                                 <i
                                     class="fa-solid fa-temperature-three-quarters"
                                 ></i>
-                                Temperature
+                                Temperature:
                             </h5>
                             <div id="weatherIcon"></div>
                             <div
@@ -107,15 +110,15 @@
                                 <span>|</span>
                                 <a href="#" id="fahrenheit-link">°F</a>
                             </div>
-                        </div>
-                        <span
-                            class="temperature-more"
-                            id="weather-description"
-                        ></span>
-                        <span class="temperature-more" id="feels"></span>
-                        <div class="today-max-min">
-                            <span id="today-temp-max"></span>
-                            <span id="today-temp-min"></span>
+                            <div
+                                class="temperature-more"
+                                id="weather-description"
+                            ></div>
+                            <div class="temperature-more" id="feels"></div>
+                            <div class="today-max-min">
+                                <span id="today-temp-max"></span>
+                                <span id="today-temp-min"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,7 +127,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 <i class="fa-solid fa-calendar-day"></i>
-                                Forecast
+                                Forecast:
                             </h5>
                             <div id="weather-forecast"></div>
                         </div>
