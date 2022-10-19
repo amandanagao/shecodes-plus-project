@@ -232,7 +232,7 @@ function showInformation(response) {
         humidity.innerHTML = `${response.data.temperature.humidity}%`;
 
         let wind = document.querySelector("#wind-speed");
-        let windSpeed = (response.data.wind.speed * 3.6).toFixed(0);
+        let windSpeed = response.data.wind.speed.toFixed(0);
         wind.innerHTML = `${windSpeed} km/h`;
 
         /*let sunrise = document.querySelector("#sunrise");
