@@ -265,28 +265,35 @@ function showSunriseSunset(response) {
 }
 
 function axiosCalls(type, actionObj, endPoint) {
-    let apiKey = "b220773ot9b8ef196b845b21b5cabb26";
     let units = "metric";
-    let apiEndPoint = `https://api.shecodes.io/weather/v1/${endPoint}`;
-
+    let apiKey = "";
+    let apiEndPoint = "";
     let apiUrl = "";
     let latitude = "";
     let longitude = "";
+    let locateCity = "";
 
     switch (type) {
         case "submit":
+            apiKey = "b220773ot9b8ef196b845b21b5cabb26";
+            apiEndPoint = `https://api.shecodes.io/weather/v1/${endPoint}`;
             apiUrl = `${apiEndPoint}?query=${actionObj.value}&key=${apiKey}&units=${units}`;
             axios.get(apiUrl).then(showInformation);
             break;
 
-        /*case "click":
+        case "click":
+            apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
             latitude = actionObj.coords.latitude;
             longitude = actionObj.coords.longitude;
-
-            apiUrl = `${apiEndPoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-            axios.get(apiUrl).then(showInformation);
-            break;*/
+            apiUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=5&appid=${apiKey}`;
+            axios.get(apiUrl).then(LocateCity);
+            break;
     }
+}
+
+function LocateCity(response) {
+    let city = response.data[0].name;
+    console.log(city);
 }
 
 //let celsiusTemperature = null;
@@ -297,8 +304,8 @@ function axiosCalls(type, actionObj, endPoint) {
 let searchCity = document.querySelector("#search-form");
 searchCity.addEventListener("submit", handleSubmit);
 
-//let locationButton = document.querySelector("button");
-//locationButton.addEventListener("click", getCurrentLocation);
+let locationButton = document.querySelector("button");
+locationButton.addEventListener("click", getCurrentLocation);
 
 /*let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
