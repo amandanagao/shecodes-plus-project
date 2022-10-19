@@ -3,6 +3,7 @@ function handleSubmit(event) {
     let searchInput = document.querySelector("#city-input");
     if (searchInput.value) {
         axiosCalls("submit", searchInput, "current");
+        axiosCallsOpenWeather(searchInput);
         searchInput.value = "";
     } else {
         alert("Please enter a city.");
@@ -130,27 +131,17 @@ function formatDay(timestamp) {
 function displayForecast(response) {
     let forecast = response.data.daily;
     let forecastElement = document.querySelector("#weather-forecast");
+    let todayMax = document.querySelector("#today-temp-max");
+    let todayMin = document.querySelector("#today-temp-min");
     let forecastHTML = "";
     forecast.forEach(function (forecastDay, index) {
         if (index === 0) {
-            forecastHTML =
-                forecastHTML +
-                `<div class="row" id="weather-forecast-today">
-                    <div class="col-4 weather-forecast-date">
-                        ${formatDay(forecastDay.time)}
-                    </div>    
-                    <div class="col-2 weather-forecast-icon">
-                        <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
-                            forecastDay.condition.icon
-                        }.png" alt="" width="40"/>
-                    </div>    
-                    <div class="col-3 weather-forecast-temperature-max">    
-                        ${Math.round(forecastDay.temperature.maximum)}°
-                    </div>    
-                    <div class="col-3 weather-forecast-temperature-min">
-                        ${Math.round(forecastDay.temperature.minimum)}°
-                    </div>
-                </div>`;
+            todayMax.innerHTML = `${Math.round(
+                forecastDay.temperature.maximum
+            )}°`;
+            todayMin.innerHTML = `${Math.round(
+                forecastDay.temperature.minimum
+            )}°`;
         } else {
             forecastHTML =
                 forecastHTML +
@@ -171,7 +162,6 @@ function displayForecast(response) {
                         forecastDay.temperature.minimum
                     )}°
                     </div>
-                    
                 </div>`;
         }
     });
@@ -235,27 +225,35 @@ function showInformation(response) {
         let windSpeed = response.data.wind.speed.toFixed(0);
         wind.innerHTML = `${windSpeed} km/h`;
 
-        /*let sunrise = document.querySelector("#sunrise");
-        let timezone = response.data.timezone;
-        let sunriseTime = response.data.sys.sunrise;
-        let sunriseLocal = (timezone + sunriseTime) * 1000;
-        let sunriseNow = new Date(sunriseLocal);
-        let sunriseHours = ("0" + sunriseNow.getUTCHours()).slice(-2);
-        let sunriseMinutes = ("0" + sunriseNow.getUTCMinutes()).slice(-2);
-        sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
-
-        let sunset = document.querySelector("#sunset");
-        let sunsetTime = response.data.sys.sunset;
-        let sunsetLocal = (timezone + sunsetTime) * 1000;
-        let sunsetNow = new Date(sunsetLocal);
-        let sunsetHours = ("0" + sunsetNow.getUTCHours()).slice(-2);
-        let sunsetMinutes = ("0" + sunsetNow.getUTCMinutes()).slice(-2);
-        sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
-    */
         getForecast(response.data.city);
     } else {
         errorCheck();
     }
+}
+
+function axiosCallsOpenWeather(city) {
+    let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}`;
+    axios.get(apiUrl).then(showSunriseSunset);
+}
+
+function showSunriseSunset(response) {
+    let sunrise = document.querySelector("#sunrise");
+    let timezone = response.data.timezone;
+    let sunriseTime = response.data.sys.sunrise;
+    let sunriseLocal = (timezone + sunriseTime) * 1000;
+    let sunriseNow = new Date(sunriseLocal);
+    let sunriseHours = ("0" + sunriseNow.getUTCHours()).slice(-2);
+    let sunriseMinutes = ("0" + sunriseNow.getUTCMinutes()).slice(-2);
+    sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
+
+    let sunset = document.querySelector("#sunset");
+    let sunsetTime = response.data.sys.sunset;
+    let sunsetLocal = (timezone + sunsetTime) * 1000;
+    let sunsetNow = new Date(sunsetLocal);
+    let sunsetHours = ("0" + sunsetNow.getUTCHours()).slice(-2);
+    let sunsetMinutes = ("0" + sunsetNow.getUTCMinutes()).slice(-2);
+    sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
 }
 
 function axiosCalls(type, actionObj, endPoint) {
