@@ -139,6 +139,10 @@ ul {
     font-size: 20px;
 }
 
+#weather-forecast-today {
+    font-weight: bold;
+}
+
 .weather-forecast-date {
     padding-right: 0;
 }
