@@ -139,8 +139,8 @@ function formatDay(timestamp) {
 function displayForecast(response) {
     let forecast = response.data.daily;
     let forecastElement = document.querySelector("#weather-forecast");
-    let todayMax = document.querySelector("#today-temp-max");
-    let todayMin = document.querySelector("#today-temp-min");
+    let todayMax = document.querySelector("#today-temp-max-0");
+    let todayMin = document.querySelector("#today-temp-min-0");
     let forecastHTML = "";
     forecast.forEach(function (forecastDay, index) {
         if (index === 0) {
@@ -162,13 +162,13 @@ function displayForecast(response) {
                             forecastDay.condition.icon
                         }.png" alt="" width="40"/>
                     </div>    
-                    <div class="col-2 weather-forecast-temperature-max">${Math.round(
-                        forecastDay.temperature.maximum
-                    )}°
+                    <div class="col-2 weather-forecast-temperature-max" id="temp-max-${index}">${Math.round(
+                    forecastDay.temperature.maximum
+                )}°
                     </div>    
-                    <div class="col-2 weather-forecast-temperature-min">${Math.round(
-                        forecastDay.temperature.minimum
-                    )}°
+                    <div class="col-2 weather-forecast-temperature-min"  id="temp-min-${index}">${Math.round(
+                    forecastDay.temperature.minimum
+                )}°
                     </div>
                 </div>`;
         }
@@ -292,8 +292,9 @@ function axiosCalls(type, actionObj, endPoint) {
 }
 
 function LocateCity(response) {
-    let city = response.data[0].name;
-    console.log(city);
+    let city = { value: response.data[0].name };
+    axiosCalls("submit", city, "current");
+    axiosCallsOpenWeather(city);
 }
 
 //let celsiusTemperature = null;
