@@ -23,29 +23,26 @@ function handleSubmit(event) {
     }
 }
 
-/*function errorCheck(error) {
-    let returnObject = JSON.parse(error.request.response);
-    if (returnObject.cod == 404) {
-        alert("Please enter a valid city.");
-        document.querySelector("#city").innerHTML = "CITY";
-        document.querySelector("#country").innerHTML = "COUNTRY";
-        document.querySelector("#current-temperature").innerHTML = " ";
-        document.querySelector("#weather-description").innerHTML = " ";
-        document.querySelector("#feels").innerHTML = " ";
-        document.querySelector("#today-temp-max").innerHTML = " ";
-        document.querySelector("#today-temp-min").innerHTML = " ";
-        document.querySelector("#feels").innerHTML = " ";
-        document.querySelector("#weather-forecast").innerHTML = " ";
-        document.querySelector("#humidity").innerHTML = " ";
-        document.querySelector("#wind-speed").innerHTML = " ";
-        document.querySelector("#sunrise").innerHTML = " ";
-        document.querySelector("#sunset").innerHTML = " ";
-        if (document.getElementById("weatherImgIcon") !== null) {
-            document.querySelector("#weatherImgIcon").remove();
-        }
+function errorCheck() {
+    alert("Please enter a valid city.");
+    document.querySelector("#city").innerHTML = "CITY";
+    document.querySelector("#country").innerHTML = "COUNTRY";
+    document.querySelector("#current-temperature").innerHTML = " ";
+    document.querySelector("#weather-description").innerHTML = " ";
+    document.querySelector("#feels").innerHTML = " ";
+    document.querySelector("#today-temp-max").innerHTML = " ";
+    document.querySelector("#today-temp-min").innerHTML = " ";
+    document.querySelector("#feels").innerHTML = " ";
+    document.querySelector("#weather-forecast").innerHTML = " ";
+    document.querySelector("#humidity").innerHTML = " ";
+    document.querySelector("#wind-speed").innerHTML = " ";
+    document.querySelector("#sunrise").innerHTML = " ";
+    document.querySelector("#sunset").innerHTML = " ";
+    if (document.getElementById("weatherImgIcon") !== null) {
+        document.querySelector("#weatherImgIcon").remove();
     }
 }
-*/
+
 function getCurrentLocation(event) {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -189,73 +186,76 @@ function getForecast(coordinates) {
 }
 
 function showInformation(response) {
-    console.log(response);
     /*celsiusTemperature = response.data.main.temp;
     celsiusTemperatureFeels = response.data.main.feels_like;
     celsiusTemperatureMax = response.data.main.temp_max;
     celsiusTemperatureMin = response.data.main.temp_min;
 */
-    let city = document.querySelector("#city");
-    city.innerHTML = `${response.data.city}`;
+    if (response.data.status != "not_found") {
+        let city = document.querySelector("#city");
+        city.innerHTML = `${response.data.city}`;
 
-    let country = document.querySelector("#country");
-    country.innerHTML = `${response.data.country}`;
+        let country = document.querySelector("#country");
+        country.innerHTML = `${response.data.country}`;
 
-    //Weather Icons
-    if (document.getElementById("weatherImgIcon") === null) {
-        let weatherImg = document.createElement("img");
-        weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
-        weatherImg.id = "weatherImgIcon";
-        document.getElementById("weatherIcon").appendChild(weatherImg);
+        //Weather Icons
+        if (document.getElementById("weatherImgIcon") === null) {
+            let weatherImg = document.createElement("img");
+            weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
+            weatherImg.id = "weatherImgIcon";
+            document.getElementById("weatherIcon").appendChild(weatherImg);
+        } else {
+            let weatherImg = document.getElementById("weatherImgIcon");
+            weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
+            document.getElementById("weatherIcon").appendChild(weatherImg);
+        }
+
+        let temperature = Math.round(response.data.temperature.current);
+        let currentTemperature = document.querySelector("#current-temperature");
+        currentTemperature.innerHTML = `${temperature}`;
+
+        let description = document.querySelector("#weather-description");
+        description.innerHTML = `${response.data.condition.description}`;
+
+        let feelsLike = document.querySelector("#feels");
+        feelsLike.innerHTML = `Feels like: ${Math.round(
+            response.data.temperature.feels_like
+        )}°`;
+
+        //let todayMax = document.querySelector("#today-temp-max");
+        //todayMax.innerHTML = `${Math.round(response.data.main.temp_max)}°`;
+
+        //let todayMin = document.querySelector("#today-temp-min");
+        //todayMin.innerHTML = `${Math.round(response.data.main.temp_min)}°`;
+
+        let humidity = document.querySelector("#humidity");
+        humidity.innerHTML = `${response.data.temperature.humidity}%`;
+
+        let wind = document.querySelector("#wind-speed");
+        let windSpeed = (response.data.wind.speed * 3.6).toFixed(0);
+        wind.innerHTML = `${windSpeed} km/h`;
+
+        /*let sunrise = document.querySelector("#sunrise");
+        let timezone = response.data.timezone;
+        let sunriseTime = response.data.sys.sunrise;
+        let sunriseLocal = (timezone + sunriseTime) * 1000;
+        let sunriseNow = new Date(sunriseLocal);
+        let sunriseHours = ("0" + sunriseNow.getUTCHours()).slice(-2);
+        let sunriseMinutes = ("0" + sunriseNow.getUTCMinutes()).slice(-2);
+        sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
+
+        let sunset = document.querySelector("#sunset");
+        let sunsetTime = response.data.sys.sunset;
+        let sunsetLocal = (timezone + sunsetTime) * 1000;
+        let sunsetNow = new Date(sunsetLocal);
+        let sunsetHours = ("0" + sunsetNow.getUTCHours()).slice(-2);
+        let sunsetMinutes = ("0" + sunsetNow.getUTCMinutes()).slice(-2);
+        sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
+    */
+        getForecast(response.data.city);
     } else {
-        let weatherImg = document.getElementById("weatherImgIcon");
-        weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
-        document.getElementById("weatherIcon").appendChild(weatherImg);
+        errorCheck();
     }
-
-    let temperature = Math.round(response.data.temperature.current);
-    let currentTemperature = document.querySelector("#current-temperature");
-    currentTemperature.innerHTML = `${temperature}`;
-
-    let description = document.querySelector("#weather-description");
-    description.innerHTML = `${response.data.condition.description}`;
-
-    let feelsLike = document.querySelector("#feels");
-    feelsLike.innerHTML = `Feels like: ${Math.round(
-        response.data.temperature.feels_like
-    )}°`;
-
-    //let todayMax = document.querySelector("#today-temp-max");
-    //todayMax.innerHTML = `${Math.round(response.data.main.temp_max)}°`;
-
-    //let todayMin = document.querySelector("#today-temp-min");
-    //todayMin.innerHTML = `${Math.round(response.data.main.temp_min)}°`;
-
-    let humidity = document.querySelector("#humidity");
-    humidity.innerHTML = `${response.data.temperature.humidity}%`;
-
-    let wind = document.querySelector("#wind-speed");
-    let windSpeed = (response.data.wind.speed * 3.6).toFixed(0);
-    wind.innerHTML = `${windSpeed} km/h`;
-
-    /*let sunrise = document.querySelector("#sunrise");
-    let timezone = response.data.timezone;
-    let sunriseTime = response.data.sys.sunrise;
-    let sunriseLocal = (timezone + sunriseTime) * 1000;
-    let sunriseNow = new Date(sunriseLocal);
-    let sunriseHours = ("0" + sunriseNow.getUTCHours()).slice(-2);
-    let sunriseMinutes = ("0" + sunriseNow.getUTCMinutes()).slice(-2);
-    sunrise.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
-
-    let sunset = document.querySelector("#sunset");
-    let sunsetTime = response.data.sys.sunset;
-    let sunsetLocal = (timezone + sunsetTime) * 1000;
-    let sunsetNow = new Date(sunsetLocal);
-    let sunsetHours = ("0" + sunsetNow.getUTCHours()).slice(-2);
-    let sunsetMinutes = ("0" + sunsetNow.getUTCMinutes()).slice(-2);
-    sunset.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
-*/
-    getForecast(response.data.city);
 }
 
 function axiosCalls(type, actionObj, endPoint) {
@@ -270,7 +270,7 @@ function axiosCalls(type, actionObj, endPoint) {
     switch (type) {
         case "submit":
             apiUrl = `${apiEndPoint}?query=${actionObj.value}&key=${apiKey}&units=${units}`;
-            axios.get(apiUrl).then(showInformation).catch(errorCheck);
+            axios.get(apiUrl).then(showInformation);
             break;
 
         /*case "click":
@@ -283,10 +283,10 @@ function axiosCalls(type, actionObj, endPoint) {
     }
 }
 
-let celsiusTemperature = null;
-let celsiusTemperatureFeels = null;
-let celsiusTemperatureMax = null;
-let celsiusTemperatureMin = null;
+//let celsiusTemperature = null;
+//let celsiusTemperatureFeels = null;
+//let celsiusTemperatureMax = null;
+//let celsiusTemperatureMin = null;
 
 let searchCity = document.querySelector("#search-form");
 searchCity.addEventListener("submit", handleSubmit);
@@ -303,4 +303,3 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 showDay();
 showDate();
 showTime();
-displayForecast();
