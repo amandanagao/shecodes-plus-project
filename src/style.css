@@ -83,6 +83,14 @@ body {
     margin-bottom: 15px;
 }
 
+#current-day,
+#current-date,
+#current-time {
+    font-size: 25px;
+    font-family: "Handlee", cursive;
+    font-weight: bold;
+}
+
 .card-display {
     padding: 0px 10px;
 }
