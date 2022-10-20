@@ -19,17 +19,18 @@ ul {
 
 .card-body {
     padding: 16px 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search {
+.navbar {
     text-align: center;
     margin: 0px 10px 25px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 #city-input {
-    width: 70%;
-    padding: 5px;
-    border: 1px solid black;
+    width: 630px;
     border-radius: 10px;
     text-align: center;
 }
