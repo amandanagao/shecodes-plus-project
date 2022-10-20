@@ -35,12 +35,6 @@ ul {
     text-align: center;
 }
 
-.fa-input {
-    position: relative;
-    bottom: 2px;
-    font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 #location-button {
     position: relative;
     bottom: 0px;
@@ -71,6 +65,7 @@ ul {
 .city-country #city {
     font-size: 40px;
     margin-right: 10px;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .city-country #country {
@@ -93,6 +88,7 @@ ul {
 .card-title {
     font-size: 20px;
     font-weight: 600;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 #weatherIcon {
