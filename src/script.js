@@ -20,7 +20,9 @@ function handleSubmit(event) {
         document.querySelector("#wind-speed").innerHTML = " ";
         document.querySelector("#sunrise").innerHTML = " ";
         document.querySelector("#sunset").innerHTML = " ";
-        document.querySelector("#weatherImgIcon").remove();
+        if (document.getElementById("weatherImgIcon") !== null) {
+            document.querySelector("#weatherImgIcon").remove();
+        }
     }
 }
 
