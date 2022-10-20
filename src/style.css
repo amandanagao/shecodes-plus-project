@@ -35,7 +35,7 @@ body {
     text-align: center;
     margin: 0px 10px 25px;
     border-radius: 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 #city-input {
@@ -49,9 +49,9 @@ body {
 
 .buttons {
     width: 45px;
-    border: 1px solid #6c757d;
+    border: 1px solid #586067;
     border-radius: 25px;
-    color: #6c757d;
+    color: #586067;
     background-color: white;
     transition: all 150ms ease-in-out;
 }
