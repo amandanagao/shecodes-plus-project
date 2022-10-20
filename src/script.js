@@ -24,23 +24,46 @@ function handleSubmit(event) {
     }
 }
 
-function errorCheck() {
-    alert("Please enter a valid city.");
-    document.querySelector("#city").innerHTML = "CITY";
-    document.querySelector("#country").innerHTML = "COUNTRY";
-    document.querySelector("#current-temperature").innerHTML = " ";
-    document.querySelector("#weather-description").innerHTML = " ";
-    document.querySelector("#feels").innerHTML = " ";
-    document.querySelector("#today-temp-max-0").innerHTML = " ";
-    document.querySelector("#today-temp-min-0").innerHTML = " ";
-    document.querySelector("#feels").innerHTML = " ";
-    document.querySelector("#weather-forecast").innerHTML = " ";
-    document.querySelector("#humidity").innerHTML = " ";
-    document.querySelector("#wind-speed").innerHTML = " ";
-    document.querySelector("#sunrise").innerHTML = " ";
-    document.querySelector("#sunset").innerHTML = " ";
-    if (document.getElementById("weatherImgIcon") !== null) {
-        document.querySelector("#weatherImgIcon").remove();
+function errorCheck(error = null) {
+    if (!error) {
+        let returnObject = JSON.parse(error.request.response);
+        if (returnObject.cod == 404) {
+            alert("Please enter a valid city.");
+            document.querySelector("#city").innerHTML = "CITY";
+            document.querySelector("#country").innerHTML = "COUNTRY";
+            document.querySelector("#current-temperature").innerHTML = " ";
+            document.querySelector("#weather-description").innerHTML = " ";
+            document.querySelector("#feels").innerHTML = " ";
+            document.querySelector("#today-temp-max").innerHTML = " ";
+            document.querySelector("#today-temp-min").innerHTML = " ";
+            document.querySelector("#feels").innerHTML = " ";
+            document.querySelector("#weather-forecast").innerHTML = " ";
+            document.querySelector("#humidity").innerHTML = " ";
+            document.querySelector("#wind-speed").innerHTML = " ";
+            document.querySelector("#sunrise").innerHTML = " ";
+            document.querySelector("#sunset").innerHTML = " ";
+            if (document.getElementById("weatherImgIcon") !== null) {
+                document.querySelector("#weatherImgIcon").remove();
+            }
+        }
+    } else {
+        alert("Please enter a valid city.");
+        document.querySelector("#city").innerHTML = "CITY";
+        document.querySelector("#country").innerHTML = "COUNTRY";
+        document.querySelector("#current-temperature").innerHTML = " ";
+        document.querySelector("#weather-description").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#today-temp-max-0").innerHTML = " ";
+        document.querySelector("#today-temp-min-0").innerHTML = " ";
+        document.querySelector("#feels").innerHTML = " ";
+        document.querySelector("#weather-forecast").innerHTML = " ";
+        document.querySelector("#humidity").innerHTML = " ";
+        document.querySelector("#wind-speed").innerHTML = " ";
+        document.querySelector("#sunrise").innerHTML = " ";
+        document.querySelector("#sunset").innerHTML = " ";
+        if (document.getElementById("weatherImgIcon") !== null) {
+            document.querySelector("#weatherImgIcon").remove();
+        }
     }
 }
 
@@ -103,6 +126,20 @@ function displayFahrenheitTemperature(event) {
     feelsLike.innerHTML = `Feels like: ${Math.round(fahrenheitFeels)}°`;
     todayMax.innerHTML = `${Math.round(fahrenheitMax)}°`;
     todayMin.innerHTML = `${Math.round(fahrenheitMin)}°`;
+
+    let foreachArray = [1, 2, 3, 4, 5, 6];
+    foreachArray.forEach(function (value) {
+        let tempMax = document.getElementById(`temp-max-${value}`);
+        let tempMin = document.getElementById(`temp-min-${value}`);
+
+        tempMaxN = tempMax.innerText.replace("°", "");
+        tempMinN = tempMin.innerText.replace("°", "");
+
+        let fahrenheitMax = (tempMaxN * 9) / 5 + 32;
+        let fahrenheitMin = (tempMinN * 9) / 5 + 32;
+        tempMax.innerHTML = `${Math.round(fahrenheitMax)}°`;
+        tempMin.innerHTML = `${Math.round(fahrenheitMin)}°`;
+    });
 }
 
 //Conversion to Celsius
@@ -187,57 +224,61 @@ function getForecast(coordinates) {
 }
 
 function showInformation(response) {
-    celsiusTemperature = response.data.temperature.current;
-    celsiusTemperatureFeels = response.data.temperature.feels_like;
+    if (response.data.temperature) {
+        celsiusTemperature = response.data.temperature.current;
+        celsiusTemperatureFeels = response.data.temperature.feels_like;
 
-    if (response.data.status != "not_found") {
-        let city = document.querySelector("#city");
-        city.innerHTML = `${response.data.city}`;
+        if (response.data.status != "not_found") {
+            let city = document.querySelector("#city");
+            city.innerHTML = `${response.data.city}`;
 
-        let country = document.querySelector("#country");
-        country.innerHTML = `${response.data.country}`;
+            let country = document.querySelector("#country");
+            country.innerHTML = `${response.data.country}`;
 
-        //Weather Icons
-        if (document.getElementById("weatherImgIcon") === null) {
-            let weatherImg = document.createElement("img");
-            weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
-            weatherImg.id = "weatherImgIcon";
-            document.getElementById("weatherIcon").appendChild(weatherImg);
+            //Weather Icons
+            if (document.getElementById("weatherImgIcon") === null) {
+                let weatherImg = document.createElement("img");
+                weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
+                weatherImg.id = "weatherImgIcon";
+                document.getElementById("weatherIcon").appendChild(weatherImg);
+            } else {
+                let weatherImg = document.getElementById("weatherImgIcon");
+                weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
+                document.getElementById("weatherIcon").appendChild(weatherImg);
+            }
+
+            let temperature = Math.round(response.data.temperature.current);
+            let currentTemperature = document.querySelector(
+                "#current-temperature"
+            );
+            currentTemperature.innerHTML = `${temperature}`;
+
+            let description = document.querySelector("#weather-description");
+            description.innerHTML = `${response.data.condition.description}`;
+
+            let feelsLike = document.querySelector("#feels");
+            feelsLike.innerHTML = `Feels like: ${Math.round(
+                response.data.temperature.feels_like
+            )}°`;
+
+            let humidity = document.querySelector("#humidity");
+            humidity.innerHTML = `${response.data.temperature.humidity}%`;
+
+            let wind = document.querySelector("#wind-speed");
+            let windSpeed = response.data.wind.speed.toFixed(0);
+            wind.innerHTML = `${windSpeed} km/h`;
+
+            getForecast(response.data.city);
         } else {
-            let weatherImg = document.getElementById("weatherImgIcon");
-            weatherImg.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`;
-            document.getElementById("weatherIcon").appendChild(weatherImg);
+            errorCheck();
         }
-
-        let temperature = Math.round(response.data.temperature.current);
-        let currentTemperature = document.querySelector("#current-temperature");
-        currentTemperature.innerHTML = `${temperature}`;
-
-        let description = document.querySelector("#weather-description");
-        description.innerHTML = `${response.data.condition.description}`;
-
-        let feelsLike = document.querySelector("#feels");
-        feelsLike.innerHTML = `Feels like: ${Math.round(
-            response.data.temperature.feels_like
-        )}°`;
-
-        let humidity = document.querySelector("#humidity");
-        humidity.innerHTML = `${response.data.temperature.humidity}%`;
-
-        let wind = document.querySelector("#wind-speed");
-        let windSpeed = response.data.wind.speed.toFixed(0);
-        wind.innerHTML = `${windSpeed} km/h`;
-
-        getForecast(response.data.city);
-    } else {
-        errorCheck();
     }
 }
 
 function axiosCallsOpenWeather(city) {
     let apiKey = "45bb2b01d47a7c6f32fb06dd72181ea6";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}`;
-    axios.get(apiUrl).then(showSunriseSunset);
+    axios.get(apiUrl).then(showSunriseSunset).catch(errorCheck);
 }
 
 function showSunriseSunset(response) {
