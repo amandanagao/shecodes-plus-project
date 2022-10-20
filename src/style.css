@@ -115,6 +115,7 @@ ul {
 .units .active {
     color: black;
     cursor: default;
+    font-weight: bold;
 }
 
 #weather-description:first-letter {
@@ -131,11 +132,11 @@ ul {
     font-size: 18px;
 }
 
-.today-max-min #today-temp-max {
+.today-max-min #today-temp-max-0 {
     font-weight: bold;
 }
 
-.today-max-min #today-temp-min {
+.today-max-min #today-temp-min-0 {
     opacity: 70%;
 }
 

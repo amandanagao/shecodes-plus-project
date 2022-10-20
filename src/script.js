@@ -12,8 +12,8 @@ function handleSubmit(event) {
         document.querySelector("#current-temperature").innerHTML = " ";
         document.querySelector("#weather-description").innerHTML = " ";
         document.querySelector("#feels").innerHTML = " ";
-        document.querySelector("#today-temp-max").innerHTML = " ";
-        document.querySelector("#today-temp-min").innerHTML = " ";
+        document.querySelector("#today-temp-max-0").innerHTML = " ";
+        document.querySelector("#today-temp-min-0").innerHTML = " ";
         document.querySelector("#feels").innerHTML = " ";
         document.querySelector("#weather-forecast").innerHTML = " ";
         document.querySelector("#humidity").innerHTML = " ";
@@ -31,8 +31,8 @@ function errorCheck() {
     document.querySelector("#current-temperature").innerHTML = " ";
     document.querySelector("#weather-description").innerHTML = " ";
     document.querySelector("#feels").innerHTML = " ";
-    document.querySelector("#today-temp-max").innerHTML = " ";
-    document.querySelector("#today-temp-min").innerHTML = " ";
+    document.querySelector("#today-temp-max-0").innerHTML = " ";
+    document.querySelector("#today-temp-min-0").innerHTML = " ";
     document.querySelector("#feels").innerHTML = " ";
     document.querySelector("#weather-forecast").innerHTML = " ";
     document.querySelector("#humidity").innerHTML = " ";
@@ -87,14 +87,14 @@ function showTime() {
 }
 
 //Conversion to Fahrenheit
-/*function displayFahrenheitTemperature(event) {
+function displayFahrenheitTemperature(event) {
     event.preventDefault();
     celsiusLink.classList.remove("active");
     fahrenheitLink.classList.add("active");
     let temperatureElement = document.querySelector("#current-temperature");
     let feelsLike = document.querySelector("#feels");
-    let todayMax = document.querySelector("#today-temp-max");
-    let todayMin = document.querySelector("#today-temp-min");
+    let todayMax = document.querySelector("#today-temp-max-0");
+    let todayMin = document.querySelector("#today-temp-min-0");
     let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
     let fahrenheitFeels = (celsiusTemperatureFeels * 9) / 5 + 32;
     let fahrenheitMax = (celsiusTemperatureMax * 9) / 5 + 32;
@@ -112,14 +112,14 @@ function displayCelsiusTemperature(event) {
     fahrenheitLink.classList.remove("active");
     let temperatureElement = document.querySelector("#current-temperature");
     let feelsLike = document.querySelector("#feels");
-    let todayMax = document.querySelector("#today-temp-max");
-    let todayMin = document.querySelector("#today-temp-min");
+    let todayMax = document.querySelector("#today-temp-max-0");
+    let todayMin = document.querySelector("#today-temp-min-0");
     temperatureElement.innerHTML = Math.round(celsiusTemperature);
     feelsLike.innerHTML = `Feels like: ${Math.round(celsiusTemperatureFeels)}°`;
     todayMax.innerHTML = `${Math.round(celsiusTemperatureMax)}°`;
     todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
 }
-*/
+
 function formatDay(timestamp) {
     let date = new Date(timestamp * 1000);
     let day = date.getDay();
@@ -137,6 +137,9 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
+    celsiusTemperatureMax = response.data.daily[0].temperature.maximum;
+    celsiusTemperatureMin = response.data.daily[0].temperature.minimum;
+
     let forecast = response.data.daily;
     let forecastElement = document.querySelector("#weather-forecast");
     let todayMax = document.querySelector("#today-temp-max-0");
@@ -184,11 +187,9 @@ function getForecast(coordinates) {
 }
 
 function showInformation(response) {
-    /*celsiusTemperature = response.data.main.temp;
-    celsiusTemperatureFeels = response.data.main.feels_like;
-    celsiusTemperatureMax = response.data.main.temp_max;
-    celsiusTemperatureMin = response.data.main.temp_min;
-*/
+    celsiusTemperature = response.data.temperature.current;
+    celsiusTemperatureFeels = response.data.temperature.feels_like;
+
     if (response.data.status != "not_found") {
         let city = document.querySelector("#city");
         city.innerHTML = `${response.data.city}`;
@@ -219,12 +220,6 @@ function showInformation(response) {
         feelsLike.innerHTML = `Feels like: ${Math.round(
             response.data.temperature.feels_like
         )}°`;
-
-        //let todayMax = document.querySelector("#today-temp-max");
-        //todayMax.innerHTML = `${Math.round(response.data.main.temp_max)}°`;
-
-        //let todayMin = document.querySelector("#today-temp-min");
-        //todayMin.innerHTML = `${Math.round(response.data.main.temp_min)}°`;
 
         let humidity = document.querySelector("#humidity");
         humidity.innerHTML = `${response.data.temperature.humidity}%`;
@@ -297,10 +292,10 @@ function LocateCity(response) {
     axiosCallsOpenWeather(city);
 }
 
-//let celsiusTemperature = null;
-//let celsiusTemperatureFeels = null;
-//let celsiusTemperatureMax = null;
-//let celsiusTemperatureMin = null;
+let celsiusTemperature = null;
+let celsiusTemperatureFeels = null;
+let celsiusTemperatureMax = null;
+let celsiusTemperatureMin = null;
 
 let searchCity = document.querySelector("#search-form");
 searchCity.addEventListener("submit", handleSubmit);
@@ -308,12 +303,12 @@ searchCity.addEventListener("submit", handleSubmit);
 let locationButton = document.querySelector("button");
 locationButton.addEventListener("click", getCurrentLocation);
 
-/*let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
-*/
+
 showDay();
 showDate();
 showTime();
