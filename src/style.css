@@ -10,10 +10,13 @@ ul {
     list-style-type: none;
 }
 
+body {
+    background: #daf2e7;
+}
+
 .container {
     max-width: 800px;
     margin-top: 10px;
-    padding: 20px;
     font-family: "Handlee", cursive;
 }
 
@@ -84,10 +87,15 @@ ul {
     padding: 0px 10px;
 }
 
-.card-title {
+.card-title,
+.card-title2 {
     font-size: 20px;
     font-weight: 600;
     text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title2 {
+    text-align: center;
 }
 
 #weatherIcon {
@@ -167,14 +175,14 @@ ul {
 .more-info {
     text-align: center;
     font-weight: 100;
-    font-size: 35px;
+    font-size: 25px;
     padding: 20px;
 }
 
 .sun-time {
     text-align: center;
     font-weight: 100;
-    font-size: 35px;
+    font-size: 25px;
     padding: 20px;
 }
 
