@@ -11,16 +11,11 @@ ul {
 }
 
 body {
-    background: linear-gradient(
-        180deg,
-        rgb(248, 250, 249) 0%,
-        rgb(218, 242, 231) 39%,
-        rgb(156, 215, 185) 100%
-    );
-    background-attachment: fixed;
+    background: #f1f5f3;
 }
 
 .container {
+    color: rgb(0, 101, 101);
     max-width: 800px;
     margin-top: 10px;
     font-family: "Handlee", cursive;
@@ -28,11 +23,17 @@ body {
 
 .card-body {
     padding: 16px 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(
+        180deg,
+        rgb(248, 250, 249) 0%,
+        rgb(218, 242, 231) 50%,
+        rgb(156, 215, 185) 100%
+    );
+    background-attachment: fixed;
 }
 
 .navbar {
-    text-align: center;
     margin: 0px 10px 25px;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -57,9 +58,9 @@ body {
 }
 
 .buttons:hover {
-    border: 1px solid #43a77a;
+    border: 1px solid rgb(0, 101, 101);
     color: white;
-    background-color: #43a77a;
+    background-color: rgb(0, 101, 101);
 }
 
 .city-country {
@@ -118,6 +119,8 @@ body {
 .today-temperature {
     text-align: center;
     font-size: 50px;
+    color: black;
+    font-weight: bold;
 }
 
 .units {
@@ -133,6 +136,7 @@ body {
     color: black;
     cursor: default;
     font-weight: bold;
+    pointer-events: none;
 }
 
 #weather-description:first-letter {
@@ -146,7 +150,8 @@ body {
 
 .today-max-min {
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
+    color: black;
 }
 
 .today-max-min #today-temp-max-0 {
@@ -154,7 +159,7 @@ body {
 }
 
 .today-max-min #today-temp-min-0 {
-    opacity: 70%;
+    opacity: 80%;
 }
 
 #weather-forecast {
@@ -178,25 +183,27 @@ body {
 .weather-forecast-temperature-max {
     padding-right: 0;
     font-weight: bold;
+    color: black;
 }
 
 .weather-forecast-temperature-min {
-    opacity: 70%;
+    opacity: 80%;
     padding-right: 0;
+    color: black;
 }
 
 .more-info {
     text-align: center;
-    font-weight: 100;
     font-size: 25px;
     padding: 20px;
+    color: black;
 }
 
 .sun-time {
     text-align: center;
-    font-weight: 100;
     font-size: 25px;
     padding: 20px;
+    color: black;
 }
 
 #open-source-code {
