@@ -127,8 +127,8 @@ function displayFahrenheitTemperature(event) {
     todayMax.innerHTML = `${Math.round(fahrenheitMax)}°`;
     todayMin.innerHTML = `${Math.round(fahrenheitMin)}°`;
 
-    let foreachArray = [1, 2, 3, 4, 5, 6];
-    foreachArray.forEach(function (value) {
+    let forEachArray = [1, 2, 3, 4, 5, 6];
+    forEachArray.forEach(function (value) {
         let tempMax = document.getElementById(`temp-max-${value}`);
         let tempMin = document.getElementById(`temp-min-${value}`);
 
@@ -155,6 +155,20 @@ function displayCelsiusTemperature(event) {
     feelsLike.innerHTML = `Feels like: ${Math.round(celsiusTemperatureFeels)}°`;
     todayMax.innerHTML = `${Math.round(celsiusTemperatureMax)}°`;
     todayMin.innerHTML = `${Math.round(celsiusTemperatureMin)}°`;
+
+    let forEachArray = [1, 2, 3, 4, 5, 6];
+    forEachArray.forEach(function (value) {
+        let tempMax = document.getElementById(`temp-max-${value}`);
+        let tempMin = document.getElementById(`temp-min-${value}`);
+
+        tempMaxN = tempMax.innerText.replace("°", "");
+        tempMinN = tempMin.innerText.replace("°", "");
+
+        let celsiusMax = ((tempMaxN - 32) * 5) / 9;
+        let celsiusMin = ((tempMinN - 32) * 5) / 9;
+        tempMax.innerHTML = `${Math.round(celsiusMax)}°`;
+        tempMin.innerHTML = `${Math.round(celsiusMin)}°`;
+    });
 }
 
 function formatDay(timestamp) {
