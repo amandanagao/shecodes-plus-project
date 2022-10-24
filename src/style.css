@@ -162,11 +162,12 @@ body {
 }
 
 .today-max-min #today-temp-max-0 {
+    color: #fe2d00;
     font-weight: bold;
 }
 
 .today-max-min #today-temp-min-0 {
-    opacity: 80%;
+    opacity: 60%;
 }
 
 #weather-forecast {
@@ -190,11 +191,11 @@ body {
 .weather-forecast-temperature-max {
     padding-right: 0;
     font-weight: bold;
-    color: black;
+    color: #fe2d00;
 }
 
 .weather-forecast-temperature-min {
-    opacity: 80%;
+    opacity: 50%;
     padding-right: 0;
     color: black;
 }
