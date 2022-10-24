@@ -19,21 +19,20 @@ body {
     max-width: 800px;
     margin-top: 10px;
     font-family: "Handlee", cursive;
+    background: white;
+    background-image: radial-gradient(#d0d2d1 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position: -25px -25px;
 }
 
 .card-body {
     padding: 16px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(
-        180deg,
-        rgb(248, 250, 249) 0%,
-        rgb(218, 242, 231) 50%,
-        rgb(156, 215, 185) 100%
-    );
-    background-attachment: fixed;
+    background: rgba(156, 215, 185, 0.2);
 }
 
 .navbar {
+    background-color: #f1f5f3;
     margin: 0px 10px 25px;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -65,36 +64,34 @@ body {
 
 .city-country {
     text-align: center;
-    margin-top: -10px;
-    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
     font-family: "Font Awesome 6 Free";
 }
 
 .city-country #city {
-    font-size: 40px;
-    margin-right: 10px;
-    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    font-size: 28px;
+    font-family: "Handlee", cursive;
 }
 
 .city-country #country {
-    font-size: 13px;
-}
-
-.day-date-time {
-    font-size: 20px;
+    font-size: 28px;
+    font-family: "Handlee", cursive;
 }
 
 .date-time {
     text-align: center;
-    margin-bottom: 15px;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 #current-day,
 #current-date,
 #current-time {
-    font-size: 22px;
+    font-size: 25px;
     font-family: "Handlee", cursive;
-    font-weight: bold;
 }
 
 .card-display {
@@ -130,6 +127,7 @@ body {
 
 .units a {
     text-decoration: none;
+    color: #9f9d9d;
 }
 
 .units .active {

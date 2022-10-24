@@ -36,7 +36,7 @@
                 Daily Weather Planner
             </h1>
             <!--Search Bar + Buttons-->
-            <nav class="navbar ml-auto bg-success p-2 text-dark bg-opacity-25">
+            <nav class="navbar ml-auto p-2 text-dark bg-opacity-25">
                 <div class="container-fluid d-block">
                     <form class="d-flex" role="search" id="search-form">
                         <input
@@ -60,29 +60,27 @@
                 </div>
             </nav>
             <!--City and Country-->
-            <div class="city-country">
-                <span id="city">City</span>
-                <br />
-                <span id="country">Country</span>
-            </div>
-            <!--Day, Date and Time-->
-            <div class="row day-date-time">
-                <div class="col-4">
-                    <div class="date-time">
-                        <i class="fa-solid fa-thumbtack"></i>
-                        <div id="current-day"></div>
-                    </div>
+            <div class="row">
+                <div class="col-6 city-country">
+                    <i class="fa-solid fa-map-location-dot"> City:</i>
+                    <span id="city"></span>
+                    <br />
+                    <i class="fa-solid fa-globe"> Country:</i>
+                    <span id="country"></span>
                 </div>
-                <div class="col-4">
+                <!--Day, Date and Time-->
+                <div class="col-6 day-date-time">
                     <div class="date-time">
-                        <i class="fa-regular fa-calendar"></i>
-                        <div id="current-date"></div>
+                        <i class="fa-solid fa-thumbtack"> Day:</i>
+                        <span id="current-day"></span>
                     </div>
-                </div>
-                <div class="col-4">
                     <div class="date-time">
-                        <i class="fa-regular fa-clock"></i>
-                        <div id="current-time"></div>
+                        <i class="fa-solid fa-calendar"> Date:</i>
+                        <span id="current-date"></span>
+                    </div>
+                    <div class="date-time">
+                        <i class="fa-solid fa-clock"> Time:</i>
+                        <span id="current-time"></span>
                     </div>
                 </div>
             </div>
