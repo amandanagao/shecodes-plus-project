@@ -32,7 +32,7 @@ body {
 }
 
 .navbar {
-    background-color: #f1f8f8;
+    background-color: #e2f3f3;
     margin: 0px 10px 25px;
     border-radius: 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -57,9 +57,9 @@ body {
 }
 
 .buttons:hover {
-    border: 1px solid #fe2d00;
+    border: 1px solid rgb(0, 72, 72);
     color: white;
-    background-color: #fe2d00;
+    background-color: rgb(0, 72, 72);
 }
 
 .city-country {
@@ -71,11 +71,13 @@ body {
 }
 
 .city-country #city {
+    color: black;
     font-size: 28px;
     font-family: "Handlee", cursive;
 }
 
 .city-country #country {
+    color: black;
     font-size: 28px;
     font-family: "Handlee", cursive;
 }
@@ -90,6 +92,7 @@ body {
 #current-day,
 #current-date,
 #current-time {
+    color: black;
     font-size: 25px;
     font-family: "Handlee", cursive;
 }
@@ -158,11 +161,9 @@ body {
 .today-max-min {
     text-align: center;
     font-size: 20px;
-    color: black;
 }
 
 .today-max-min #today-temp-max-0 {
-    color: #fe2d00;
     font-weight: bold;
 }
 
@@ -191,7 +192,6 @@ body {
 .weather-forecast-temperature-max {
     padding-right: 0;
     font-weight: bold;
-    color: #fe2d00;
 }
 
 .weather-forecast-temperature-min {
