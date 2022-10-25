@@ -63,8 +63,7 @@ body {
 }
 
 .city-country {
-    position: relative;
-    left: 70px;
+    text-align: center;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -96,18 +95,6 @@ body {
     color: black;
     font-size: 25px;
     font-family: "Handlee", cursive;
-}
-
-.fa-thumbtack,
-#current-day {
-    position: relative;
-    right: 26px;
-}
-
-.fa-clock,
-#current-time {
-    position: relative;
-    right: 33px;
 }
 
 .card-display {
