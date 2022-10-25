@@ -28,7 +28,12 @@ body {
 .card-body {
     padding: 16px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    background: rgba(184, 221, 219, 0.2);
+    background: linear-gradient(
+        180deg,
+        rgb(246, 249, 249) 40%,
+        rgb(226, 243, 243) 100%
+    );
+    background-attachment: fixed;
 }
 
 .navbar {
